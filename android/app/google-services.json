@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "113161264553",
+    "project_id": "bagzag-28e01",
+    "storage_bucket": "bagzag-28e01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113161264553:android:33d89f1031e3da35c4f8b8",
+        "android_client_info": {
+          "package_name": "com.hyperlink.flutter_demo_structure"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD84BeyjKNYu35t2QKTtArvM9LGbbYg9Js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
