@@ -24,7 +24,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final Map<int, PageRouteInfo> routePage = {
     2: BagzagMallRoute(),
-    10: SettingRoute()
+    6: MessagesRoute(),
+    10: SettingRoute(),
   };
   @override
   Widget build(BuildContext context) {

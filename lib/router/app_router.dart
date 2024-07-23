@@ -4,6 +4,7 @@ import 'package:flutter_demo_structure/core/locator/locator.dart';
 import 'package:flutter_demo_structure/ui/splash/splash_page.dart';
 
 import '../data/my_data/feed_story_data.dart';
+import '../data/my_data/messages_data.dart';
 import '../ui/auth/forgot_password/forgot_password_page.dart';
 import '../ui/auth/forgot_password/phone_verification_page.dart';
 import '../ui/auth/forgot_password/reset_password_page.dart';
@@ -20,6 +21,8 @@ import '../ui/bottom_navigation_bar/home/home_page.dart';
 import '../ui/bottom_navigation_bar/home/searched_product_view_page.dart';
 import '../ui/bottom_navigation_bar/profile/bagzag/bagzag_mall_page.dart';
 import '../ui/bottom_navigation_bar/profile/bagzag/mall_details_page.dart';
+import '../ui/bottom_navigation_bar/profile/messages/message_chatting_page.dart';
+import '../ui/bottom_navigation_bar/profile/messages/messages_page.dart';
 import '../ui/bottom_navigation_bar/profile/profile_page.dart';
 import '../ui/bottom_navigation_bar/profile/settings/about_us_page.dart';
 import '../ui/bottom_navigation_bar/profile/settings/change_password_page.dart';
@@ -84,6 +87,8 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: CreateStoryRoute.page),
     AutoRoute(page: StoryViewRoute.page),
     AutoRoute(page: PostedProductDetailsRoute.page),
+    AutoRoute(page: MessagesRoute.page),
+    AutoRoute(page: MessageChattingRoute.page),
   ];
 }
 
