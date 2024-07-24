@@ -64,8 +64,8 @@ class _MessagesPageState extends State<MessagesPage> {
             children: [
               GestureDetector(
                 onTap: () {
-                  appRouter
-                      .push(MessageChattingRoute(messagesData: messagesData));
+                  appRouter.push(MessageChattingRoute(
+                      messagesData: messagesData, index: index));
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,7 @@ class _MessagesPageState extends State<MessagesPage> {
                     ClipRRect(
                       child: Image.asset(
                         messagesData.dp,
-                        height: 46.r,
+                        height: 46,
                         width: 46.w,
                       ),
                       borderRadius: BorderRadius.circular(3).r,
@@ -100,7 +100,7 @@ class _MessagesPageState extends State<MessagesPage> {
                               ),
                             ],
                           ),
-                          5.verticalSpace,
+                          3.verticalSpace,
                           Text(
                             messagesData.msg,
                             style: textRegular.copyWith(

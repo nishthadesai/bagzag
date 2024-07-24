@@ -13,7 +13,7 @@ class MessagesData {
       required this.time});
 }
 
-List messageDataList = [
+List<MessagesData> messageDataList = [
   MessagesData(
       dp: Assets.imageStudioPost1ProfilePic,
       name: "Jacob Memes",
