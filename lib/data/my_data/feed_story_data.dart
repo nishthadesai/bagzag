@@ -2,11 +2,22 @@ import 'package:flutter_demo_structure/generated/assets.dart';
 
 import '../../generated/l10n.dart';
 
+enum MediaType { image, video }
+
+class Stories {
+  final dynamic story;
+  final MediaType mediaType;
+  final Duration duration;
+
+  Stories(
+      {required this.story, required this.mediaType, required this.duration});
+}
+
 class FeedStoryData {
   final String name;
   final String profilePic;
   final bool isVideo;
-  final dynamic storyPic;
+  final List<Stories> storyPic;
   final String productName;
   final String desc;
   final String video;
@@ -16,13 +27,35 @@ class FeedStoryData {
 }
 
 List feedStoryList = [
-  FeedStoryData(S.current.addStory, "", false,
-      Assets.imageStudioPost1ProfilePic, "", "", ""),
+  FeedStoryData(
+      S.current.addStory,
+      "",
+      false,
+      [
+        Stories(
+            story: Assets.imageStudioPost1ProfilePic,
+            mediaType: MediaType.image,
+            duration: Duration(seconds: 5))
+      ],
+      "",
+      "",
+      ""),
   FeedStoryData(
       S.current.michael,
       Assets.imageStory1Profile,
       true,
-      Assets.imageStory1,
+      [
+        Stories(
+          story: Assets.imageStory1,
+          mediaType: MediaType.image,
+          duration: Duration(seconds: 5),
+        ),
+        Stories(
+          story: Assets.imageStoryVideo2,
+          mediaType: MediaType.video,
+          duration: Duration(seconds: 5),
+        )
+      ],
       S.current.fashionTShirt,
       S.current.loremIpsumDolorSitAmetConsecrateSadipscingElitrSedDiam,
       Assets.imageStoryVideo2),
@@ -30,7 +63,12 @@ List feedStoryList = [
       S.current.rubina,
       Assets.imageStory2Profile,
       false,
-      Assets.imageStory2,
+      [
+        Stories(
+            story: Assets.imageStory2,
+            mediaType: MediaType.image,
+            duration: Duration(seconds: 5))
+      ],
       S.current.fashionTops,
       S.current.loremIpsumDolorSitAmetConsecrateSadipscingElitrSedDiam,
       ""),
@@ -38,7 +76,18 @@ List feedStoryList = [
       S.current.arzyan,
       Assets.imageStory3Profile,
       true,
-      Assets.imageStory3,
+      [
+        Stories(
+          story: Assets.imageStory3,
+          mediaType: MediaType.image,
+          duration: Duration(seconds: 5),
+        ),
+        Stories(
+          story: Assets.imageStoryVideo1,
+          mediaType: MediaType.video,
+          duration: Duration(seconds: 5),
+        )
+      ],
       S.current.fashionTops,
       S.current.loremIpsumDolorSitAmetConsecrateSadipscingElitrSedDiam,
       Assets.imageStoryVideo1),
@@ -46,7 +95,12 @@ List feedStoryList = [
       S.current.michael,
       Assets.imageStory1Profile,
       false,
-      Assets.imageStory1,
+      [
+        Stories(
+            story: Assets.imageStory1,
+            mediaType: MediaType.image,
+            duration: Duration(seconds: 5))
+      ],
       S.current.fashionTShirt,
       S.current.loremIpsumDolorSitAmetConsecrateSadipscingElitrSedDiam,
       ""),
@@ -54,7 +108,12 @@ List feedStoryList = [
       S.current.rubina,
       Assets.imageStory2Profile,
       false,
-      Assets.imageStory2,
+      [
+        Stories(
+            story: Assets.imageStory2,
+            mediaType: MediaType.image,
+            duration: Duration(seconds: 5))
+      ],
       S.current.fashionTops,
       S.current.loremIpsumDolorSitAmetConsecrateSadipscingElitrSedDiam,
       ""),
@@ -62,7 +121,12 @@ List feedStoryList = [
       S.current.arzyan,
       Assets.imageStory3Profile,
       false,
-      Assets.imageStory3,
+      [
+        Stories(
+            story: Assets.imageStory3,
+            mediaType: MediaType.image,
+            duration: Duration(seconds: 5))
+      ],
       S.current.fashionTops,
       S.current.loremIpsumDolorSitAmetConsecrateSadipscingElitrSedDiam,
       ""),
@@ -70,7 +134,12 @@ List feedStoryList = [
       S.current.michael,
       Assets.imageStory1Profile,
       false,
-      Assets.imageStory1,
+      [
+        Stories(
+            story: Assets.imageStory1,
+            mediaType: MediaType.image,
+            duration: Duration(seconds: 5))
+      ],
       S.current.fashionTShirt,
       S.current.loremIpsumDolorSitAmetConsecrateSadipscingElitrSedDiam,
       ""),

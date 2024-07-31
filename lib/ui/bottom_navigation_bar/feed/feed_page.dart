@@ -87,25 +87,26 @@ class _FeedPageState extends State<FeedPage> {
               child: Stack(
                 alignment: Alignment.topLeft,
                 children: [
-                  data.storyPic is String
-                      ? ClipRRect(
-                          child: Image.asset(
-                            fit: BoxFit.fill,
-                            data.storyPic,
-                            height: 100.r,
-                            width: 77.w,
-                          ),
-                          borderRadius: BorderRadius.circular(7).r,
-                        )
-                      : ClipRRect(
-                          child: Image.file(
-                            fit: BoxFit.fill,
-                            data.storyPic,
-                            height: 100.r,
-                            width: 77.w,
-                          ),
-                          borderRadius: BorderRadius.circular(7).r,
-                        ),
+                  // data.storyPic is String
+                  //     ?
+                  ClipRRect(
+                    child: Image.asset(
+                      fit: BoxFit.fill,
+                      data.storyPic[0].story,
+                      height: 100.r,
+                      width: 77.w,
+                    ),
+                    borderRadius: BorderRadius.circular(7).r,
+                  ),
+                  // : ClipRRect(
+                  //     child: Image.file(
+                  //       fit: BoxFit.fill,
+                  //       data.storyPic[0].story,
+                  //       height: 100.r,
+                  //       width: 77.w,
+                  //     ),
+                  //     borderRadius: BorderRadius.circular(7).r,
+                  //   ),
                   GestureDetector(
                     onTap: () {
                       if (index == 0) {

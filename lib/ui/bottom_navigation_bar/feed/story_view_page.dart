@@ -21,8 +21,12 @@ class StoryViewPage extends StatefulWidget {
   State<StoryViewPage> createState() => _StoryViewPageState();
 }
 
-class _StoryViewPageState extends State<StoryViewPage> {
+class _StoryViewPageState extends State<StoryViewPage>
+    with TickerProviderStateMixin {
   TextEditingController messageController = TextEditingController();
+  PageController pageController = PageController();
+  late AnimationController _animationController;
+  ValueNotifier<int> _currentIndex = ValueNotifier(0);
   late VideoPlayerController _controller;
   @override
   void initState() {
@@ -32,7 +36,6 @@ class _StoryViewPageState extends State<StoryViewPage> {
     );
     _controller.setLooping(true);
     _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
   }
 
   @override
@@ -48,40 +51,67 @@ class _StoryViewPageState extends State<StoryViewPage> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        widget.data.isVideo
-            ? Center(
-                child: SizedBox(
-                  height: _controller.value.aspectRatio < 1 ? height : null,
-                  width: double.infinity,
-                  child: AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  ),
-                ),
-              )
-            : widget.data.storyPic is String
-                ? Image.asset(
+        Positioned.fill(
+          child: PageView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: widget.data.storyPic.length,
+            itemBuilder: (context, index) {
+              Stories stories = widget.data.storyPic[index];
+              if (stories.mediaType == MediaType.video) {
+                _controller.play();
+              } else {
+                _controller.pause();
+              }
+              return Stack(
+                children: [
+                  stories.mediaType == MediaType.image
+                      ? stories.story is String
+                          ? Image.asset(
+                              height: height,
+                              fit: BoxFit.fill,
+                              stories.story,
+                              width: double.infinity,
+                            )
+                          : Image.file(
+                              height: height,
+                              fit: BoxFit.fill,
+                              stories.story,
+                              width: double.infinity,
+                            )
+                      : Center(
+                          child: SizedBox(
+                            height: _controller.value.aspectRatio < 1
+                                ? height
+                                : null,
+                            width: double.infinity,
+                            child: AspectRatio(
+                              aspectRatio: _controller.value.aspectRatio,
+                              child: VideoPlayer(_controller),
+                            ),
+                          ),
+                        ),
+                  Container(
                     height: height,
-                    fit: BoxFit.fill,
-                    widget.data.storyPic,
                     width: double.infinity,
-                  )
-                : Image.file(
-                    height: height,
-                    fit: BoxFit.fill,
-                    widget.data.storyPic,
-                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            AppColor.black.withOpacity(0),
+                            AppColor.black.withOpacity(0.90)
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                    ),
                   ),
-        Container(
-          height: height,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              AppColor.black.withOpacity(0),
-              AppColor.black.withOpacity(0.90)
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                ],
+              );
+            },
           ),
         ),
+        // widget.data.isVideo
+        //     ?
+        //     :
+
         Positioned(
           top: 43.r,
           left: 19.r,
@@ -213,6 +243,70 @@ class _StoryViewPageState extends State<StoryViewPage> {
         ),
       ],
     );
+  }
+
+  void _onTapDown(TapDownDetails details, Stories story) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double dx = details.globalPosition.dx;
+    if (dx < screenWidth / 3) {
+      setState(() {
+        if (_currentIndex.value - 1 >= 0) {
+          _currentIndex.value -= 1;
+          _loadStory(story: widget.data.storyPic[_currentIndex.value]);
+        }
+      });
+    } else if (dx > 2 * screenWidth / 3) {
+      // setState(() {
+      if (_currentIndex.value + 1 < widget.data.storyPic.length) {
+        _currentIndex.value += 1;
+        _loadStory(story: widget.data.storyPic[_currentIndex.value]);
+      } else {
+        appRouter.maybePop();
+        _currentIndex.value = 0;
+        _loadStory(story: widget.data.storyPic[_currentIndex.value]);
+      }
+      // });
+    } else {
+      if (story.mediaType == MediaType.video) {
+        if (_controller.value.isPlaying) {
+          _controller.pause();
+          _animationController.stop();
+        } else {
+          _controller.play();
+          _animationController.forward();
+        }
+      }
+    }
+  }
+
+  void _loadStory({required Stories story, bool animateToPage = true}) {
+    _animationController.stop();
+    _animationController.reset();
+    switch (story.mediaType) {
+      case MediaType.image:
+        _animationController.duration = story.duration;
+        _animationController.forward();
+        break;
+      case MediaType.video:
+        _controller.dispose();
+        _controller = VideoPlayerController.asset(story.story)
+          ..initialize().then((_) {
+            setState(() {});
+            if (_controller.value.isInitialized) {
+              _animationController.duration = _controller.value.duration;
+              _controller.play();
+              _animationController.forward();
+            }
+          });
+        break;
+    }
+    if (animateToPage) {
+      pageController.animateToPage(
+        _currentIndex.value,
+        duration: const Duration(milliseconds: 1),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override

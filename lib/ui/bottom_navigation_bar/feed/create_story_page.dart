@@ -50,16 +50,16 @@ class _CreateStoryPageState extends State<CreateStoryPage> {
           ), () {
         if (formKey.currentState!.validate()) {
           feedStoryList.removeAt(0);
-          feedStoryList.insertAll(0, [
-            FeedStoryData(
-                "David",
-                Assets.imageStudioPost1ProfilePic,
-                false,
-                File(widget.path),
-                captionController.text,
-                descController.text,
-                "")
-          ]);
+          // feedStoryList.insertAll(0, [
+          //   FeedStoryData(
+          //       "David",
+          //       Assets.imageStudioPost1ProfilePic,
+          //       false,
+          //       File(widget.path),
+          //       captionController.text,
+          //       descController.text,
+          //       "")
+          // ]);
           showMessage("Story added succesfully");
           debugPrint(feedStoryList.length.toString());
           appRouter.maybePop();
