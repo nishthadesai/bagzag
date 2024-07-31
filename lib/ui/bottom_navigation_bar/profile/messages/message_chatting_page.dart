@@ -280,6 +280,7 @@ class _MessageChattingPageState extends State<MessageChattingPage>
                         GestureDetector(
                           onTap: () {
                             onMessageSubmit();
+                            print("object");
                           },
                           child: Icon(
                             Icons.send,
