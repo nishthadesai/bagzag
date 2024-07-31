@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_demo_structure/core/db/app_db.dart';
 import 'package:flutter_demo_structure/core/locator/locator.dart';
 import 'package:flutter_demo_structure/firebase_options.dart';
-import 'package:flutter_demo_structure/generated/assets.dart';
 import 'package:flutter_demo_structure/generated/l10n.dart';
 import 'package:flutter_demo_structure/router/app_router.dart';
 import 'package:flutter_demo_structure/values/app_class.dart';
@@ -16,6 +15,8 @@ import 'package:flutter_demo_structure/values/theme.dart';
 import 'package:flutter_demo_structure/widget/custom_error_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'generated/assets.dart';
 
 Future<void> main() async {
   runZonedGuarded(
@@ -65,37 +66,52 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(375, 812),
       useInheritedMediaQuery: true,
-      builder: (context, child) => MaterialApp.router(
-        theme: appTheme,
-        // locale: DevicePreview.locale(context),
-        // builder: DevicePreview.appBuilder,
-        debugShowCheckedModeBanner: false,
-        builder: (BuildContext context, child) {
-          child = ScrollConfiguration(
-            behavior: MyBehavior(),
-            child: child!,
+      builder: (context, child) => ValueListenableBuilder(
+        valueListenable: themeNotifier,
+        builder: (context, themeMode, child) {
+          return MaterialApp.router(
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: themeMode,
+            // locale: DevicePreview.locale(context),
+            // builder: DevicePreview.appBuilder,
+            debugShowCheckedModeBanner: false,
+            builder: (BuildContext context, child) {
+              child = ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: child!,
+              );
+              child = MediaQuery(
+                child: child,
+                data: MediaQuery.of(context).copyWith(
+                    textScaler: TextScaler.linear(1.0), boldText: false),
+              );
+              child = getMainAppViewBuilder(context, child);
+              return child;
+            },
+            routerDelegate: appRouter.delegate(),
+            routeInformationParser: appRouter.defaultRouteParser(),
+            onGenerateTitle: (context) => S.of(context).applicationTitle,
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
           );
-          child = MediaQuery(
-            child: child,
-            data: MediaQuery.of(context)
-                .copyWith(textScaler: TextScaler.linear(1.0), boldText: false),
-          );
-          child = getMainAppViewBuilder(context, child);
-          return child;
         },
-        routerDelegate: appRouter.delegate(),
-        routeInformationParser: appRouter.defaultRouteParser(),
-        onGenerateTitle: (context) => S.of(context).applicationTitle,
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
       ),
     );
   }
+}
+
+ValueNotifier<ThemeMode> themeNotifier =
+    ValueNotifier<ThemeMode>(ThemeMode.system);
+
+void switchThemeMode() {
+  themeNotifier.value =
+      themeNotifier.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
 }
 
 /// Create main app view builder

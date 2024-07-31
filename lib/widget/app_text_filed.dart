@@ -208,7 +208,7 @@ class AppTextField extends StatelessWidget {
         FocusScope.of(context).requestFocus(nextFocusNode);
         break;
       default:
-        FocusScope.of(context).unfocus();
+        null;
         break;
     }
   }

@@ -39,6 +39,7 @@ final TextStyle textMedium = TextStyle(
   fontWeight: FontWeight.w500,
   fontSize: 16.spMin,
   overflow: TextOverflow.ellipsis,
+  color: AppColor.black,
 );
 final TextStyle textSemiBold = TextStyle(
   fontFamily: "Poppins",
@@ -46,6 +47,7 @@ final TextStyle textSemiBold = TextStyle(
   fontWeight: FontWeight.w600,
   fontSize: 16.spMin,
   overflow: TextOverflow.ellipsis,
+  color: AppColor.black,
 );
 final TextStyle textBold = TextStyle(
   fontFamily: "Poppins",
@@ -53,6 +55,7 @@ final TextStyle textBold = TextStyle(
   fontWeight: FontWeight.w700,
   fontSize: 16.spMin,
   overflow: TextOverflow.ellipsis,
+  color: AppColor.black,
 );
 final TextStyle textExtraBold = TextStyle(
   fontFamily: "Poppins",
@@ -60,6 +63,7 @@ final TextStyle textExtraBold = TextStyle(
   fontWeight: FontWeight.w800,
   fontSize: 16.spMin,
   overflow: TextOverflow.ellipsis,
+  color: AppColor.black,
 );
 final TextStyle textBlack = TextStyle(
   fontFamily: "Poppins",
@@ -67,4 +71,5 @@ final TextStyle textBlack = TextStyle(
   fontWeight: FontWeight.w900,
   fontSize: 26.spMin,
   overflow: TextOverflow.ellipsis,
+  color: AppColor.black,
 );

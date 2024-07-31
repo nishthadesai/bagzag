@@ -49,6 +49,7 @@ class _BaseAppBarState extends State<BaseAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      scrolledUnderElevation: 0,
       centerTitle: widget.centerTitle,
       title: !widget.showTitle
           ? const SizedBox.shrink()

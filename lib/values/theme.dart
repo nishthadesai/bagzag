@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_structure/values/colors.dart';
 import 'package:flutter_demo_structure/values/style.dart';
+
+import 'colors.dart';
 
 final ThemeData appTheme = ThemeData(
   primaryColor: AppColor.primaryColor,
@@ -23,4 +24,14 @@ final ThemeData appTheme = ThemeData(
   ),
   colorScheme:
       ColorScheme.fromSwatch().copyWith(secondary: AppColor.brownColor),
+);
+
+final ThemeData lightTheme = ThemeData(
+  brightness: Brightness.light,
+  primarySwatch: Colors.blue,
+);
+
+final ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  primarySwatch: Colors.blue,
 );
